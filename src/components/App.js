@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleInitialData} from '../actions/shared';
+import LoadingBar from 'react-redux-loading';
 
 class App extends Component {
   componentDidMount() {
@@ -9,18 +11,21 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <Fragment>
+          <LoadingBar />
+          <div>{this.props.hasLoaded && <div>Loaded</div>}</div>
+        </Fragment>
+      </BrowserRouter>
     );
   }
 }
 
-export default connect()(App);
+function mapStateToProps({authedUser, loadingBar}) {
+  return {
+    authedUser,
+    hasLoaded: loadingBar && loadingBar.default === 0,
+  };
+}
+
+export default connect(mapStateToProps)(App);
