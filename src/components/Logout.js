@@ -1,28 +1,48 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import styled from '@emotion/styled';
 import {Button} from 'semantic-ui-react';
+import {setAuthedUser} from '../actions/authedUser';
+import {withRouter} from 'react-router-dom';
 
 const StyledLoggedInMessage = styled.div`
   display: inline-block;
   margin-right: 5px;
 `;
 
-const Logout = ({currentUser, onLogout}) => (
-  <div>
-    <StyledLoggedInMessage>Hello, {currentUser.name}</StyledLoggedInMessage>
+class Logout extends Component {
+  onLogout = e => {
+    e.preventDefault();
 
-    <Button
-      size="mini"
-      negative
-      onClick={e => {
-        e.preventDefault();
-        console.log('Testing');
-        onLogout();
-      }}
-    >
-      Logout
-    </Button>
-  </div>
-);
+    const {history, dispatch} = this.props;
 
-export default Logout;
+    dispatch(setAuthedUser(null));
+
+    history.push('/');
+  };
+
+  render() {
+    const {currentUser} = this.props;
+    const name = currentUser && currentUser.name ? currentUser.name : 'Unknown';
+
+    return (
+      <div>
+        <StyledLoggedInMessage>Hello, {name}</StyledLoggedInMessage>
+
+        <Button size="mini" negative onClick={this.onLogout}>
+          Logout
+        </Button>
+      </div>
+    );
+  }
+}
+
+function mapStateToProps({users, authedUser}) {
+  const currentUser = authedUser && users[authedUser];
+
+  return {
+    currentUser,
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(Logout));
