@@ -2,10 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, NavLink} from 'react-router-dom';
 import {Menu, Container} from 'semantic-ui-react';
-
-const Logout = ({currentUser, onLogout}) => <p>Hello, {currentUser.name}</p>;
+import {setAuthedUser} from '../actions/authedUser';
+import Logout from './Logout';
 
 class NavBar extends Component {
+  onLogout = () => {
+    const {history, dispatch} = this.props;
+
+    dispatch(setAuthedUser(null));
+
+    history.push('/');
+  };
+
   render() {
     const {currentUser} = this.props;
 
@@ -16,11 +24,11 @@ class NavBar extends Component {
           <Menu.Item as={NavLink} to="/add" content="New Question" />
           <Menu.Item as={NavLink} to="/leaderboard" content="Leader Board" />
 
-          {/* {currentUser && (
-            <Menu.Item>
-              <Logout currentUser={currentUser} />
+          {currentUser && (
+            <Menu.Item position="right">
+              <Logout currentUser={currentUser} onLogout={this.onLogout} />
             </Menu.Item>
-          )} */}
+          )}
         </Container>
       </Menu>
     );
