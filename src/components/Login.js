@@ -22,12 +22,20 @@ class Login extends Component {
     e.preventDefault();
 
     const {selectedUser} = this.state;
-    const {dispatch, history} = this.props;
+    const {
+      dispatch,
+      history,
+      location: {
+        state: {from},
+      },
+    } = this.props;
+
+    const returnUrl = from && from.pathname ? from.pathname : '/';
 
     if (!selectedUser) return;
 
     dispatch(setAuthedUser(selectedUser));
-    history.push('/');
+    history.push(returnUrl);
   };
 
   render() {
