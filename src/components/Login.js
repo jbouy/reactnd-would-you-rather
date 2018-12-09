@@ -1,14 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {Container, Header, Segment, Form} from 'semantic-ui-react';
-import styled from '@emotion/styled';
+import {Header, Segment, Form} from 'semantic-ui-react';
 import {setAuthedUser} from '../actions/authedUser';
 import {withRouter} from 'react-router-dom';
-
-const LoginContainer = styled(Container)`
-  margin-top: 100px;
-`;
 
 class Login extends Component {
   state = {
@@ -46,7 +41,7 @@ class Login extends Component {
     }));
 
     return (
-      <LoginContainer text>
+      <Fragment>
         <Header attached="top" textAlign="center">
           Welcome to the Would You Rather App
           <Header.Subheader>Please sign in to continue</Header.Subheader>
@@ -68,7 +63,7 @@ class Login extends Component {
             </Form.Button>
           </Form>
         </Segment>
-      </LoginContainer>
+      </Fragment>
     );
   }
 }
