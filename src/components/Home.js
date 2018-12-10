@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Tab} from 'semantic-ui-react';
-import _ from 'lodash';
 import Question from './Question';
+import {getAnsweredQuestions, getUnansweredQuestions} from '../selectors/questions';
 
 class Home extends Component {
   render() {
@@ -35,17 +35,10 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps({questions, authedUser, users}) {
-  const currentUser = users[authedUser];
-  const answeredIds = !!currentUser ? _.sortBy(_.keys(currentUser.answers), id => -questions[id].timestamp) : [];
-
+function mapStateToProps(state) {
   return {
-    answeredIds,
-    unansweredIds: _.chain(questions)
-      .omit(answeredIds)
-      .sortBy(q => -q.timestamp)
-      .map(q => q.id)
-      .value(),
+    answeredIds: getAnsweredQuestions(state).map(q => q.id),
+    unansweredIds: getUnansweredQuestions(state).map(q => q.id),
   };
 }
 

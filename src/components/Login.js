@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {Header, Segment, Form} from 'semantic-ui-react';
 import {setAuthedUser} from '../actions/authedUser';
 import {withRouter} from 'react-router-dom';
+import {getAuthedUser, getUsers} from '../selectors/users';
 
 class Login extends Component {
   state = {
@@ -76,9 +77,12 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({users, authedUser}) {
+function mapStateToProps(state) {
+  const authedUser = getAuthedUser(state);
+  const users = getUsers(state);
+
   return {
-    authedUser,
+    authedUserId: authedUser ? authedUser.id : null,
     users: _.map(users, ({id, name, avatarURL}) => ({
       id,
       name,

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter, NavLink} from 'react-router-dom';
 import {Menu, Container} from 'semantic-ui-react';
 import Logout from './Logout';
+import {getAuthedUser} from '../selectors/users';
 
 class NavBar extends Component {
   render() {
@@ -26,9 +27,9 @@ class NavBar extends Component {
   }
 }
 
-function mapStateToProps({users, authedUser}) {
+function mapStateToProps(state) {
   return {
-    loggedIn: !!authedUser && !!users[authedUser],
+    loggedIn: !!getAuthedUser(state),
   };
 }
 

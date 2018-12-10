@@ -14,6 +14,7 @@ import AddQuestion from './AddQuestion';
 import LeaderBoard from './LeaderBoard';
 import NavBar from './NavBar';
 import {Container} from 'semantic-ui-react';
+import {hasLoaded} from '../selectors/loadingBar';
 
 const LoginContainer = () => (
   <Container
@@ -70,10 +71,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({authedUser, loadingBar}) {
+function mapStateToProps(state) {
   return {
-    authedUser,
-    hasLoaded: loadingBar && loadingBar.default === 0,
+    hasLoaded: hasLoaded(state),
   };
 }
 

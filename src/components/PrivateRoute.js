@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {getAuthedUser} from '../selectors/users';
 
 class PrivateRoute extends Component {
   render() {
@@ -21,9 +22,9 @@ class PrivateRoute extends Component {
   }
 }
 
-function mapStateToProps({authedUser}) {
+function mapStateToProps(state) {
   return {
-    authedUser,
+    authedUser: getAuthedUser(state),
   };
 }
 

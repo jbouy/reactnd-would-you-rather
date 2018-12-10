@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import {Button} from 'semantic-ui-react';
 import {setAuthedUser} from '../actions/authedUser';
 import {withRouter} from 'react-router-dom';
+import {getAuthedUser} from '../selectors/users';
 
 const StyledLoggedInMessage = styled.div`
   display: inline-block;
@@ -37,8 +38,8 @@ class Logout extends Component {
   }
 }
 
-function mapStateToProps({users, authedUser}) {
-  const currentUser = authedUser && users[authedUser];
+function mapStateToProps(state) {
+  const currentUser = getAuthedUser(state);
 
   return {
     currentUser,
