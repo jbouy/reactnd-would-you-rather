@@ -2,10 +2,11 @@
 
 import {jsx, css} from '@emotion/core';
 import {Component, Fragment} from 'react';
-import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {handleInitialData} from '../actions/shared';
+import {Container} from 'semantic-ui-react';
 import LoadingBar from 'react-redux-loading';
+import {handleInitialData} from '../actions/shared';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
 import Home from './Home';
@@ -13,8 +14,9 @@ import Details from './Details';
 import AddQuestion from './AddQuestion';
 import LeaderBoard from './LeaderBoard';
 import NavBar from './NavBar';
-import {Container} from 'semantic-ui-react';
+
 import {hasLoaded} from '../selectors/loadingBar';
+import NotFound from './NotFound';
 
 const LoginContainer = () => (
   <Container
@@ -41,7 +43,7 @@ const DefaultContainer = () => (
         <PrivateRoute path="/questions/:id" component={Details} />
         <PrivateRoute path="/add" component={AddQuestion} />
         <PrivateRoute path="/leaderboard" component={LeaderBoard} />
-        <Redirect to="/" />
+        <PrivateRoute component={NotFound} />
       </Switch>
     </Container>
   </Fragment>
