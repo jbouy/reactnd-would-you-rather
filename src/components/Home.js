@@ -13,6 +13,8 @@ class Home extends Component {
         menuItem: 'Unanswered Questions',
         render: () => (
           <Tab.Pane>
+            {unansweredIds.length < 1 && <p>No questions found.</p>}
+
             {unansweredIds.map(id => (
               <Question key={id} id={id} />
             ))}
@@ -23,6 +25,8 @@ class Home extends Component {
         menuItem: 'Answered Questions',
         render: () => (
           <Tab.Pane>
+            {answeredIds.length < 1 && <p>No questions found.</p>}
+
             {answeredIds.map(id => (
               <Question key={id} id={id} />
             ))}
