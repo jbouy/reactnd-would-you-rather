@@ -19,3 +19,8 @@ A simple web application that let's a user play the "Would You Rather?" game. Th
 
 * [React](https://reactjs.org/)
 * [React Router](https://github.com/ReactTraining/react-router)
+* [Redux](https://redux.js.org/)
+* [Redux Thunk](https://github.com/reduxjs/redux-thunk)
+* [Emotion](https://emotion.sh)
+* [Semantic UI React](https://react.semantic-ui.com)
+* [Lodash](https://lodash.com)
