@@ -37,8 +37,12 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    answeredIds: getAnsweredQuestions(state).map(q => q.id),
-    unansweredIds: getUnansweredQuestions(state).map(q => q.id),
+    answeredIds: getAnsweredQuestions(state)
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .map(q => q.id),
+    unansweredIds: getUnansweredQuestions(state)
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .map(q => q.id),
   };
 }
 
