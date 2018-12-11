@@ -34,6 +34,8 @@ export function getQuestion({questions, authedUser, users}, id) {
   const question = questions[id];
   if (!question) return null;
 
+  const currentUser = users[authedUser];
+
   const {timestamp, optionOne, optionTwo, author} = question;
   const {name, avatarURL} = users[author] || {};
 
@@ -46,18 +48,19 @@ export function getQuestion({questions, authedUser, users}, id) {
     authorName: name,
     timestamp,
     avatar: avatarURL,
+    hasAnswered: !!currentUser && !!currentUser.answers[id],
     totalVotes,
     optionOne: {
       text: optionOne.text,
       votes: optionOneVotes,
-      hasVoted: optionOne.votes.includes(authedUser),
+      selected: optionOne.votes.includes(authedUser),
       percentage: _.round((optionOneVotes * 100) / totalVotes, 1),
     },
     optionTwo: {
       text: optionTwo.text,
       votes: optionTwoVotes,
-      hasVoted: optionTwo.votes.includes(authedUser),
-      percentage: _.round((optionOneVotes * 100) / totalVotes, 1),
+      selected: optionTwo.votes.includes(authedUser),
+      percentage: _.round((optionTwoVotes * 100) / totalVotes, 1),
     },
   };
 }
