@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {Container} from 'semantic-ui-react';
 import LoadingBar from 'react-redux-loading';
 import {handleInitialData} from '../actions/shared';
+import {hasLoaded} from '../selectors/loadingBar';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
 import Home from './Home';
@@ -14,8 +15,6 @@ import Details from './Details';
 import AddQuestion from './AddQuestion';
 import LeaderBoard from './LeaderBoard';
 import NavBar from './NavBar';
-
-import {hasLoaded} from '../selectors/loadingBar';
 import NotFound from './NotFound';
 
 const LoginContainer = () => (
@@ -43,7 +42,8 @@ const DefaultContainer = () => (
         <PrivateRoute path="/questions/:id" component={Details} />
         <PrivateRoute path="/add" component={AddQuestion} />
         <PrivateRoute path="/leaderboard" component={LeaderBoard} />
-        <PrivateRoute component={NotFound} />
+        <Route path="/not-found" component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
     </Container>
   </Fragment>
