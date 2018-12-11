@@ -1,4 +1,4 @@
-import {RECEIVE_QUESTIONS, ADD_VOTE} from '../actions/questions';
+import {RECEIVE_QUESTIONS, ADD_VOTE, ADD_QUESTION} from '../actions/questions';
 import _ from 'lodash';
 
 export default function questions(state = {}, action) {
@@ -9,7 +9,6 @@ export default function questions(state = {}, action) {
         ...action.questions,
       };
     case ADD_VOTE:
-      console.log(state[action.qid]);
       return {
         ...state,
         [action.qid]: {
@@ -19,6 +18,11 @@ export default function questions(state = {}, action) {
             votes: _.union(state[action.qid][action.answer].votes, [action.authedUser]),
           },
         },
+      };
+    case ADD_QUESTION:
+      return {
+        ...state,
+        [action.question.id]: action.question,
       };
     default:
       return state;
